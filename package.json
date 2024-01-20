@@ -4,7 +4,7 @@
   "description": "",
   "main": "Test.js",
   "scripts": {
-    "start": "node test.js"
+    "test": "playwright test --config=playwright.config.ts"
   },
   "keywords": [],
   "author": "",
