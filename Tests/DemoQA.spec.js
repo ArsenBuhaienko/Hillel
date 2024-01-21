@@ -1,14 +1,15 @@
 import { test, expect, chromium } from '@playwright/test';
-import constants from './Constants.spec';
+import constants from './Constants';
 
-test.describe.configure({ mode: 'serial' });  // Не очень понимаю что это, но без этой конструкции не работает
+test.describe.configure({ mode: 'serial' });
+let browser;
 let page;  
 
 test.beforeAll(async ({}) => {
-  const browser = await chromium.launch();
+  browser = await chromium.launch();
   page = await browser.newPage();
 
-  await page.goto('https://demoqa.com/');
+  await page.goto(constants.expectedUrlMainPage);
   await page.locator('svg').first().click();
   await page.getByText('Text Box').click();
 });
@@ -19,24 +20,28 @@ test('Page URL', async ({}) => {
 });
 
 test('Full Name Title', async ({}) => {
-  await expect(page.getByText('Full Name')).toHaveText("Full Name");
+  const locator = constants.locatorFullNameTitle(page);
+  await expect(locator).toHaveText("Full Name");
 });
 
-// Не очень понял как локатор можно через констранту сделать
 
 test('Email Title', async ({}) => {
-  await expect(page.getByText('Email')).toHaveText("Email");
+  const locator = constants.locatorEmailTitle(page);
+  await expect(locator).toHaveText("Email");
 });
 
 test('Current Address Title', async ({}) => {
-  await expect(page.getByText('Current Address')).toHaveText("Current Address");
+  const locator = constants.locatorCurrentAddressTitle(page);
+  await expect(locator).toHaveText("Current Address");
 });
 
 test('Permanent Address Title', async ({}) => {
-  await expect(page.getByText('Permanent Address')).toHaveText("Permanent Address");;
+  const locator = constants.locatorPermanentAddressTitle(page);
+  await expect(locator).toHaveText("Permanent Address");
 });
 
 /*Close browser*/
 test.afterAll(async () => {
   await page.close();
+  await browser.close();
 });
