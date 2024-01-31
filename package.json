@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "Test.js",
+  "type": "module",
   "scripts": {
     "test": "playwright test --config=playwright.config.js"
   },
@@ -16,6 +17,7 @@
   "dependencies": {
     "@playwright/test": "^1.40.1",
     "@types/node": "^20.10.5",
+    "axios": "^1.6.7",
     "keypress": "^0.2.1"
   }
 }
