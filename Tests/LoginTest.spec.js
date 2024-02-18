@@ -1,6 +1,7 @@
 import { test, expect, chromium } from '@playwright/test';
 import { ElementsPage } from './ElementsPage';
 
+/*Data for tests*/
 let positiveDataSet = [
     {
         userName: "Cheshire",
@@ -23,12 +24,19 @@ let negativeDataSet = [
     }
 ]
 
+test.describe.configure({ mode: 'serial' });
+let browser;
+let page;  
+
+/*Inicializate browser*/
+test.beforeAll(async ({}) => {
+    browser = await chromium.launch();
+    page = await browser.newPage();
+  });
 
 positiveDataSet.forEach(({ userName, password }, index) => {
     try{
     test(`Positive Login Test ${index + 1}`, async () => {
-        const browser = await chromium.launch()
-        const page = await browser.newPage()
         let elementsPage = new ElementsPage(page)
 
         await elementsPage.openElementsPage();
@@ -51,6 +59,11 @@ negativeDataSet.forEach(({ userName, password }, index) => {
     }catch(e){Console.log("Programm executed with Error"+e)}
 })
 
+/*Close browser*/
+test.afterAll(async () => {
+    await page.close();
+    await browser.close();
+  });
 
 
 
