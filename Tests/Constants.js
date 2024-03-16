@@ -12,6 +12,6 @@ const constants = {
     };
 
     //locator = page.getByText('Full Name'), - не работает
-    // locatorFullNameTitle: "page.getByText('Full Name')", - не работает
+    //locatorFullNameTitle: "page.getByText('Full Name')", - не работает
     
     export default constants;
